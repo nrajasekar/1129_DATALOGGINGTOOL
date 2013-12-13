@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+	<head>
+    <title> Sensor Webserver</title>
+    
+    
+    <h1 style="text-align:center"> VIT UNIVERSITY GDN 138 INSTRUMENTATION LABORATORY </h1>
+    <br />
+
+<script language="javascript" type="text/javascript">
+
+        document.write("<center><br/> <font size='7' color='green'> Sensor systems  Web Server</center>");
+        document.write("<center><br/> <font size='6' color='red'>&quotCalibrations are approximate and subject to device conditions&quot</center>");
+        document.write("<center><br/> <font size='5' color='black'></center>");
+</script>
+    <hr />
+
+<script type="text/javascript">
+    
+    function AppendFile() 
+    {
+        socket.emit('append', { hello: 'world' });
+    }
+</script>
+
+    <p> The following list shows the sensor ADC values from the microcontroller from sensor 1 to sensor 6</p>
+    <br />
+    
+    <button onclick="AppendFile()">Write values to text file</button>
+    <br />
+
+	<script src="/socket.io/socket.io.js"></script>
+	<script>
+		// open a connection to the serial server:
+	    var socket = io.connect('http://localhost:8000');
+	    var aby;
+	    var temp;
+	    var newdata;
+	    var value0;
+	    var value1;
+	    var value2;
+	    var value3;
+	    var value4;
+	    var value5;
+	   
+		 // when you get a serialdata event, do this:
+	    socket.on('serialEvent', function (data) {
+	        // look for the textDisplay element in the HTML below:
+	        aby = data.value;
+	        var element0 = document.getElementById('Div0');
+	        var element1 = document.getElementById('Div1');
+	        var element2 = document.getElementById('Div2');
+	        var element3 = document.getElementById('Div3');
+	        var element4 = document.getElementById('Div4');
+	        var element5 = document.getElementById('Div5');
+	        var element6 = document.getElementById('Div6');
+	        // set the stuff inside the element's HTML tags to
+	        // whatever the 'value' property of the received data is:
+	        if (aby.indexOf('A')==0) 
+            {
+	           newdata = aby.substring(1);
+	            element0.innerHTML = newdata*.3;
+	        }
+	        else if (aby.indexOf('B') == 0) {
+	            newdata = aby.substring(1);
+	            element1.innerHTML = newdata / 3.14;
+                
+	        }
+	        else if (aby.indexOf('C') == 0) {
+	            newdata = aby.substring(1);
+	            element2.innerHTML = newdata/200;
+	        }
+	        else if (aby.indexOf('D') == 0) {
+	            newdata = aby.substring(1);
+	            element3.innerHTML = newdata;
+	        }
+	        else if (aby.indexOf('E') == 0) {
+	            newdata = aby.substring(1);
+	            element4.innerHTML = newdata;
+	        }
+	        else if (aby.indexOf('F') == 0) {
+	            newdata = aby.substring(1);
+	            element5.innerHTML = newdata;
+	        }
+	    });
+
+	</script>
+    </head>
+	
+    <body>
+    <a href="block_diagram.png">DOWNLOAD THE TEXT FILE</a>
+    <br />
+	Value of angle sensor is:
+	<div id="Div0">Text will show up here</div>
+    <br />
+    Value of strain gauge in micro strain  is:
+	<div id="Div1">Text will show up here</div> 
+    <br />
+    Value of load sensor in kg is:
+	<div id="Div2">Text will show up here</div>
+    <br />
+    Value of fourth sensor is:
+	<div id="Div3">Text will show up here</div>
+    <br />
+    Value of fifth sensor is:
+	<div id="Div4">Text will show up here</div>
+    <br />
+    Value of sixth sensor is:
+	<div id="Div5">Text will show up here</div>
+    <br />
+    
+	</body>
+</html>
